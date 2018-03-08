@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="assets_backend" name="mail assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/document_systray/static/src/js/systray.js"></script>
+                <script type="text/javascript" src="/document_systray/static/src/js/dialog.js"></script>
+                <link rel="stylesheet" href="/document_systray/static/src/less/kb.less" type="text/less"/>
+            </xpath>
+        </template>
+
+        <record id="view_wiki_form_model" model="ir.ui.view">
+            <field name="name">document.page.form.model</field>
+            <field name="model">document.page</field>
+            <field name="inherit_id" ref="document_page.view_wiki_form"/>
+            <field name="arch" type="xml">
+                <field name="parent_id" position="after">
+                    <field name="model_ids" widget="many2many_tags" options="{'no_create_edit': True, 'no_create':True, 'no_open':True}"/>
+                </field>
+            </field>
+        </record>
+    </data>
+
+    <!--<template id="pages">-->
+        <!--<t t-raw="0"/>-->
+    <!--</template>-->
+
+    <!--<template id="category">-->
+      <!--<div t-att-menu-category-id="menu_categorytitle" t-att-menu-classes="menu_categoryclasses">-->
+        <!--<t t-raw="0"/>-->
+      <!--</div>-->
+    <!--</template>-->
+
+    <!--<template id="page">-->
+        <!--<div class="o_kb_content_wrapper">-->
+            <!--<div class="o_kb_menu">-->
+            <!--</div>-->
+            <!--<div t-att-id="page_id" t-att-data-res-id="res_id" t-att-title="page_title" t-att-hide-from-menu="hide_from_menu" t-att-hide-mark-as-done="hide_mark_as_done" class="o_kb_page container-fluid">-->
+            <!--&lt;!&ndash;<h1 t-esc="page_title" t-att-data-menutitle="page_menutitle or page_title" t-att-class="'hidden' if hide_title else ''"/>&ndash;&gt;-->
+                <!--<t t-raw="0"/>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</template>-->
+    <!--<t t-name="PlannerMenu">-->
+        <!---->
+    <!--</t>-->
+    <template id="knowledge_container">
+
+        <t t-foreach="pages" t-as="page">
+            <div t-att-id="page.id" t-att-data-res-id="page.id" t-att-title="page.name" t-att-hide-from-menu="hide_from_menu" t-att-hide-mark-as-done="hide_mark_as_done" class="o_kb_page container-fluid">
+                <t t-if="page.parent_id">
+                    <div t-att-data-category-id="page.parent_id.id" name="parent_id" />
+                </t>
+                <h1 t-esc="page.name" t-att-data-menutitle="page.name" t-att-class="'hidden' if hide_title else ''"/>
+                <div>
+                    <t t-raw="page.content"/>
+                </div>
+            </div>
+        </t>
+
+        <t t-foreach="categories" t-as="category">
+            <div t-att-id="category.id" t-att-data-parent-id="category.parent_id" t-att-data-res-id="category.id" t-att-title="category.name" t-att-hide-from-menu="hide_from_menu" t-att-hide-mark-as-done="hide_mark_as_done" class="o_kb_category container-fluid hide">
+                <h1 t-esc="category.name" t-att-data-menutitle="category.name" t-att-class="'hidden' if hide_title else ''"/>
+                <!--<div>-->
+                    <!--<t t-raw="category.content"/>-->
+                <!--</div>-->
+            </div>
+        </t>
+
+    </template>
+</openerp>

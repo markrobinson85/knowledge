@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+    <!-- Systray icon -->
+    <t t-name="document_systray.quickhelp">
+        <li class="o_mail_navbar_item">
+            <a href="#" title="Knowledge">
+                <i class="fa fa-book"/>
+            </a>
+        </li>
+    </t>
+
+    <!-- Knowledge Dialog -->
+    <div t-name="KnowledgeDialog" class="modal" id="KnowledgeDialog" tabindex="-1" role="dialog" aria-labelledby="KnowledgeDialogLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg o_kb_dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="o_kb_title_block">
+                        <!--<h4 class="o_currently_shown_page"/>-->
+                        <h4>Knowledge</h4>
+                    </div>
+                    <div class="o_kb_close_block">
+                        <button aria-hidden="true" class="close" data-dismiss="modal" type="button"><span class="fa fa-close"></span></button>
+                </div>
+                </div>
+                <div class="modal-body">
+                    <div class="o_kb_content_wrapper">
+                        <div class="o_kb_menu">
+                            <ul role="menu" aria-labelledby="dLabel"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="o_kb_header_left">
+                        <button class="btn btn-primary discuss_page">
+                            <i class="fa fa-comments-o"></i>
+                            <span>Discuss</span>
+                        </button>
+                    </div>
+                    <!--<div class="o_kb_header_right text-right">-->
+                        <!--<a class="btn btn-next">-->
+                            <!--Next step-->
+                            <!--<i class="fa fa-angle-right"></i>-->
+                        <!--</a>-->
+                    <!--</div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <t t-name="KnowledgeMenu">
+        <li t-foreach="orphan_pages" t-as="orphan_page">
+            <a t-att-href="'#' + menu_item_page_map[orphan_page]"><span class="fa fa-fw"/><t t-esc="orphan_page"/></a>
+        </li>
+        <t t-foreach="menu_categories" t-as="menu_category">
+            <h4><i t-att-class="'fa ' + menu_category.classes"/><t t-esc="menu_category.name"/></h4>
+            <li t-foreach="menu_category.menu_items" t-as="menu_item">
+                <a t-att-href="'#' + menu_item_page_map[menu_item]" disable_anchor="true"><span class="fa fa-fw"/><t t-esc="menu_item"/></a>
+            </li>
+        </t>
+    </t>
+</templates>
