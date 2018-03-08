@@ -48,24 +48,25 @@
 
         <t t-foreach="pages" t-as="page">
             <div t-att-id="page.id" t-att-data-res-id="page.id" t-att-title="page.name" t-att-hide-from-menu="hide_from_menu" t-att-hide-mark-as-done="hide_mark_as_done" class="o_kb_page container-fluid">
-                <t t-if="page.parent_id">
-                    <div t-att-data-category-id="page.parent_id.id" name="parent_id" />
-                </t>
-                <h1 t-esc="page.name" t-att-data-menutitle="page.name" t-att-class="'hidden' if hide_title else ''"/>
+                <!--<t t-if="page.parent_id">-->
+                    <!--<div t-att-data-category-id="page.parent_id.id" name="parent_id" />-->
+                <!--</t>-->
+                <h1 t-esc="page.name" t-att-data-menutitle="page.name" t-att-data-categoryid="page.parent_id.name" t-att-class="'hidden' if hide_title else ''"/>
                 <div>
                     <t t-raw="page.content"/>
                 </div>
             </div>
+            <t t-if="page.parent_id">
+                <div t-att-menu-category-id="page.parent_id.name" t-att-menu-classes="page.parent_id.icon_class" />
+            </t>
         </t>
 
-        <t t-foreach="categories" t-as="category">
-            <div t-att-id="category.id" t-att-data-parent-id="category.parent_id" t-att-data-res-id="category.id" t-att-title="category.name" t-att-hide-from-menu="hide_from_menu" t-att-hide-mark-as-done="hide_mark_as_done" class="o_kb_category container-fluid hide">
-                <h1 t-esc="category.name" t-att-data-menutitle="category.name" t-att-class="'hidden' if hide_title else ''"/>
-                <!--<div>-->
-                    <!--<t t-raw="category.content"/>-->
-                <!--</div>-->
-            </div>
-        </t>
+        <!--<t t-foreach="categories" t-as="category">-->
+            <!--<div t-att-id="category.id" t-att-data-parent-id="category.parent_id" t-att-data-res-id="category.id" t-att-title="category.name" t-att-hide-from-menu="hide_from_menu" t-att-hide-mark-as-done="hide_mark_as_done" class="o_kb_category container-fluid hide">-->
+                <!--<h1 t-esc="category.name" t-att-data-menutitle="category.name" t-att-class="'hidden' if hide_title else ''"/>-->
+                <!---->
+            <!--</div>-->
+        <!--</t>-->
 
     </template>
 </openerp>

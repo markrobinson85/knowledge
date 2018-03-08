@@ -31,7 +31,8 @@
         'document_page'
     ],
     'data': [
-        'views/systray.xml'
+        'views/systray.xml',
+        'views/document_page_category.xml'
     ],
     'demo': [
     ],

@@ -20,6 +20,8 @@ class DocumentPage(models.Model):
         'ir.model', 'ir_model_document_page_rel',
         'page_id', 'model_id', 'Models')
 
+    icon_class = fields.Char('Icon Class')
+
     # @api.model
     # def render(self, template_id, planner_app):
     #     # prepare the planner data as per the planner application
