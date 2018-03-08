@@ -19,6 +19,7 @@ var KnowledgePage = core.Class.extend({
         this.dom = dom;
         this.menu_item = null;
         this.title = $dom.find('[data-menutitle]').data('menutitle');
+        this.category_id = $dom.find('[data-categoryid]').data('categoryid');
         this.res_id = parseInt($dom.context.dataset.resId);
         var page_id = this.title.replace(/\s/g, '') + page_index;
         this.set_page_id(page_id);
@@ -29,11 +30,6 @@ var KnowledgePage = core.Class.extend({
     },
     toggle_done: function () {
         this.done = ! this.done;
-    },
-    get_category_name: function (category_selector) {
-        var $page = $(this.dom);
-
-        return $page.parents(category_selector).attr('menu-category-id');
     },
 });
 
@@ -220,7 +216,7 @@ var KnowledgeDialog = Widget.extend({
 
         // pages with no category
         self.pages.forEach(function(page) {
-            if (! page.hide_from_menu && ! page.get_category_name(self.category_selector)) {
+            if (! page.hide_from_menu && ! page.category_id) {
                 self._create_menu_item(page, orphan_pages, menu_item_page_map);
             }
         });
@@ -235,12 +231,16 @@ var KnowledgeDialog = Widget.extend({
             };
 
             self.pages.forEach(function(page) {
-                if (! page.hide_from_menu && page.get_category_name(self.category_selector) === menu_category_item.name) {
+                if (! page.hide_from_menu && page.category_id === menu_category_item.name) {
                     self._create_menu_item(page, menu_category_item.menu_items, menu_item_page_map);
                 }
             });
-
-            menu_categories.push(menu_category_item);
+            var existing_category;
+            existing_category = _.find(menu_categories, { 'name': menu_category_item.name });
+//            if (~menu_categories.indexOf(menu_category_item) == false) {
+            if (_.find(menu_categories, { 'name': menu_category_item.name }) === undefined) {
+                menu_categories.push(menu_category_item);
+            }
 
             // remove the branding used to separate the pages
             self.$res = self.$res.not($menu_category);
