@@ -22,6 +22,8 @@ class DocumentPage(models.Model):
 
     icon_class = fields.Char('Icon Class')
 
+    sequence = fields.Integer('Sequence', default=0)
+
     # @api.model
     # def render(self, template_id, planner_app):
     #     # prepare the planner data as per the planner application
