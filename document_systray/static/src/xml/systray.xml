@@ -11,7 +11,7 @@
     </t>
 
     <!-- Knowledge Dialog -->
-    <div t-name="KnowledgeDialog" class="modal" id="KnowledgeDialog" tabindex="-1" role="dialog" aria-labelledby="KnowledgeDialogLabel" aria-hidden="true">
+    <div t-name="KnowledgeDialog" class="modal" id="KnowledgeDialog" data-backdrop="true" tabindex="-1" role="dialog" aria-labelledby="KnowledgeDialogLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg o_kb_dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -21,7 +21,10 @@
                     </div>
                     <div class="o_kb_close_block">
                         <button aria-hidden="true" class="close" data-dismiss="modal" type="button"><span class="fa fa-close"></span></button>
-                </div>
+                    </div>
+                    <!--<div class="o_kb_sync_block">-->
+                        <!--<button aria-hidden="true" class="close" type="button"><span class="fa fa-undo"></span></button>-->
+                    <!--</div>-->
                 </div>
                 <div class="modal-body">
                     <div class="o_kb_content_wrapper">

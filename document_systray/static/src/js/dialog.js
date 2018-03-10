@@ -71,6 +71,7 @@ var KnowledgeDialog = Widget.extend({
         'click a.btn-next': 'change_to_next_page',
 //        'click .o_kb_close_block span': 'close_modal',
         'click .o_kb_close_block span': 'destroy',
+//        'click .o_kb_sync_block span': 'sync_modal',
     },
     init: function(parent, model) {
         this._super(parent);
@@ -80,12 +81,14 @@ var KnowledgeDialog = Widget.extend({
         this.pages = [];
         this.categories = [];
         this.menu_items = [];
+
     },
     /**
      * Fetch the kb's rendered template
      */
     willStart: function() {
         var self = this;
+
         var res = this._super.apply(this, arguments).then(function() {
             return (new Model('document.page')).call('render',
                 [0, self.model],
@@ -97,6 +100,7 @@ var KnowledgeDialog = Widget.extend({
     },
     start: function() {
         var self = this;
+
         return this._super.apply(this, arguments).then(function() {
             self.$res.find('.o_kb_page').andSelf().filter('.o_kb_page').each(function(index, dom_page) {
                 var page = new KnowledgePage(dom_page, index);
@@ -125,6 +129,13 @@ var KnowledgeDialog = Widget.extend({
             // show last opened page
             self._show_last_open_page();
 //            self.prepare_kb_event();
+            $(".o_kb_dialog").draggable({
+                handle: ".modal-header"
+            });
+            $(".o_kb_dialog").resizable({
+                minWidth: 780,
+                minHeight: 435
+            });
         });
     },
     /**
@@ -360,6 +371,17 @@ var KnowledgeDialog = Widget.extend({
         ev.preventDefault();
         this.$el.modal('hide');
         this.$el.detach();
+    },
+    sync_modal: function(ev) {
+        ev.preventDefault();
+
+        self.$res = this._super.apply().then(function() {
+            return (new Model('document.page')).call('render',
+                [0, self.model],
+                {context: session.user_context});
+        }).then(function(template) {
+            self.$res = $(template);
+        });
     },
     destroy: function() {
         this.$el.modal('hide');

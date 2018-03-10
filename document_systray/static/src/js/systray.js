@@ -68,7 +68,10 @@ var Knowledge = Widget.extend({
         var model = qs.model;
         // Setup the planner if we didn't do it yet
         if (this.model && this.model == model) {
-            this.dialog.$el.modal('show');
+            this.model = null
+            this.setup_knowledge_dialog(model);
+            // TODO: Find a better way to reload the content.
+//            this.dialog.$el.modal('show');
         }
         else {
             this.setup_knowledge_dialog(model);
