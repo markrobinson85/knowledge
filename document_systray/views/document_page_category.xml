@@ -7,6 +7,55 @@
             <field name="arch" type="xml">
                 <field name="parent_id" position="after">
                     <field name="icon_class" />
+                    <field name="sequence" />
+                </field>
+            </field>
+        </record>
+
+        <record id="view_wiki_form" model="ir.ui.view">
+            <field name="name">document.page.form</field>
+            <field name="model">document.page</field>
+            <field name="inherit_id" ref="document_page.view_wiki_form" />
+            <field name="arch" type="xml">
+                <field name="parent_id" position="after">
+                    <field name="sequence" />
+                </field>
+            </field>
+        </record>
+
+        <!-- wiki tree view -->
+        <record id="view_wiki_tree_children" model="ir.ui.view">
+            <field name="name">document.page.tree</field>
+            <field name="model">document.page</field>
+            <field name="field_parent">child_ids</field>
+            <field name="inherit_id" ref="document_page.view_wiki_tree_children" />
+            <field name="priority">100</field>
+            <field name="arch" type="xml">
+                <field name="name" position="before">
+                    <field name="sequence" widget="handle"/>
+                </field>
+            </field>
+        </record>
+
+        <!-- wiki list view  -->
+        <record id="view_wiki_tree" model="ir.ui.view">
+            <field name="name">document.page.list</field>
+            <field name="model">document.page</field>
+            <field name="inherit_id" ref="document_page.view_wiki_tree" />
+            <field name="arch" type="xml">
+                <field name="name" position="before">
+                    <field name="sequence" widget="handle"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_category_tree" model="ir.ui.view">
+            <field name="name">document.page.category.tree</field>
+            <field name="model">document.page</field>
+            <field name="inherit_id" ref="document_page.view_category_tree"/>
+            <field name="arch" type="xml">
+                <field name="name" position="before">
+                    <field name="sequence" widget="handle"/>
                 </field>
             </field>
         </record>
