@@ -62,6 +62,7 @@ var KnowledgeDialog = Widget.extend({
     template: "KnowledgeDialog",
     pages: [],
     menu_items: [],
+    last_open_page: null,
     currently_shown_page: null,
     currently_active_menu_item: null,
     category_selector: 'div[menu-category-id]',
@@ -78,9 +79,11 @@ var KnowledgeDialog = Widget.extend({
 //        this.kb = model;
         this.model = model;
 //        this.doc_id =
+
         this.pages = [];
         this.categories = [];
         this.menu_items = [];
+        this.cookie_name = this.model + '_last_page';
 
     },
     /**
@@ -138,29 +141,7 @@ var KnowledgeDialog = Widget.extend({
             });
         });
     },
-    /**
-     * This method should be overridden in other kbs to bind their custom events once the
-     * view is loaded.
-     */
-//    prepare_kb_event: function() {
-//        var self = this;
-//        this.on('change:progress', this, function() {
-//            self.trigger('kb_progress_changed', self.get('progress'));
-//        });
-//        this.on('kb_progress_changed', this, this.update_ui_progress_bar);
-//        // set progress to trigger initial UI update
-//        var initial_progress = false;
-//        if (!this.kb.progress) {
-//            var total_pages = 0;
-//            this.pages.forEach(function(page) {
-//                if (! page.hide_mark_as_done) {
-//                    total_pages++;
-//                }
-//            });
-//            initial_progress = parseInt(( 1 / (total_pages + 1)) * 100, 10);
-//        }
-//        this.set('progress', initial_progress || this.kb.progress);
-//    },
+
     _render_done_page: function (page) {
         var mark_as_done_button = this.$('.mark_as_done')
         var mark_as_done_li = mark_as_done_button.find('i');
@@ -196,15 +177,15 @@ var KnowledgeDialog = Widget.extend({
     _show_last_open_page: function () {
         var last_open_page = utils.get_cookie(this.cookie_name);
 
-//        if (! last_open_page) {
-//            last_open_page = this.kb.data.last_open_page || false;
-//        }
+        if (! last_open_page) {
+            last_open_page = this.last_open_page || false;
+        }
 
-//        if (last_open_page && this._find_page_by_id(last_open_page)) {
-//            this._display_page(last_open_page);
-//        } else {
-        this._display_page(this.pages[0].id);
-//        }
+        if (last_open_page && this._find_page_by_id(last_open_page)) {
+            this._display_page(last_open_page);
+        } else {
+            this._display_page(this.pages[0].id);
+        }
 
     },
     update_ui_progress_bar: function(percent) {
@@ -341,8 +322,8 @@ var KnowledgeDialog = Widget.extend({
 
         this._render_done_page(this.currently_shown_page);
 
-//        this.kb.data.last_open_page = page_id;
-//        utils.set_cookie(this.cookie_name, page_id, 8*60*60); // create cookie for 8h
+        this.last_open_page = page_id;
+        utils.set_cookie(this.cookie_name, page_id, 8*60*60); // create cookie for 8h
         this.$(".modal-body").scrollTop("0");
 
         this.$('textarea').each(function () {
