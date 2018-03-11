@@ -21,8 +21,10 @@ var KnowledgePage = core.Class.extend({
         this.title = $dom.find('[data-menutitle]').data('menutitle');
         this.category_id = $dom.find('[data-categoryid]').data('categoryid');
         this.res_id = parseInt($dom.context.dataset.resId);
-        var page_id = this.title.replace(/\s/g, '') + page_index;
+//        var page_id = this.title.replace(/\s/g, '') + page_index;
+        var page_id = this.title.replace(/\s/g, '') + this.res_id;
         this.set_page_id(page_id);
+
     },
     set_page_id: function (id) {
         this.id = id;
@@ -141,39 +143,6 @@ var KnowledgeDialog = Widget.extend({
             });
         });
     },
-
-    _render_done_page: function (page) {
-        var mark_as_done_button = this.$('.mark_as_done')
-        var mark_as_done_li = mark_as_done_button.find('i');
-        var next_button = this.$('a.btn-next');
-        var active_menu = $(page.menu_item).find('span');
-        if (page.done) {
-            active_menu.addClass('fa-check');
-            mark_as_done_button.removeClass('btn-primary');
-            mark_as_done_li.removeClass('fa-square-o');
-            mark_as_done_button.addClass('btn-default');
-            mark_as_done_li.addClass('fa-check-square-o');
-            next_button.removeClass('btn-default');
-            next_button.addClass('btn-primary');
-
-            // page checked animation
-            $(page.dom).addClass('marked');
-            setTimeout(function() {
-                $(page.dom).removeClass('marked');
-            }, 1000);
-        } else {
-            active_menu.removeClass('fa-check');
-            mark_as_done_button.removeClass('btn-default');
-            mark_as_done_li.removeClass('fa-check-square-o');
-            mark_as_done_button.addClass('btn-primary');
-            mark_as_done_li.addClass('fa-square-o');
-            next_button.removeClass('btn-primary');
-            next_button.addClass('btn-default');
-        }
-        if (page.hide_mark_as_done) {
-            next_button.removeClass('btn-default').addClass('btn-primary');
-        }
-    },
     _show_last_open_page: function () {
         var last_open_page = utils.get_cookie(this.cookie_name);
 
@@ -193,6 +162,7 @@ var KnowledgeDialog = Widget.extend({
         this.$(".o_progress_text").text(percent+"%");
     },
     _create_menu_item: function(page, menu_items, menu_item_page_map) {
+        // TODO: Fix menu items when page name is duplicate.
         var $page = $(page.dom);
         var $menu_item_element = $page.find('h1[data-menutitle]');
         var menu_title = $menu_item_element.data('menutitle') || $menu_item_element.text();
@@ -320,7 +290,7 @@ var KnowledgeDialog = Widget.extend({
             next_button.show();
         }
 
-        this._render_done_page(this.currently_shown_page);
+//        this._render_done_page(this.currently_shown_page);
 
         this.last_open_page = page_id;
         utils.set_cookie(this.cookie_name, page_id, 8*60*60); // create cookie for 8h

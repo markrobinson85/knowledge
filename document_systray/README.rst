@@ -8,7 +8,7 @@ Document System Tray
 
 Adds an icon and help modal window next to the chat icon to feature content from document_page.
 
-Javascript and CSS from web_planner module was used.
+Javascript, CSS and some XML from web_planner module was used.
 
 Installation
 ============
