@@ -2,7 +2,7 @@
 <odoo>
 <data noupdate="0">
 
-    <record id="base.group_document_technical" model="res.groups">
+    <record id="base.group_document_technical_manager" model="res.groups">
         <field name="name">Technical Manager</field>
         <field name="category_id" ref="knowledge.module_category_knowledge"/>
         <field name="users" eval="[(4, ref('base.user_root'))]"/>
