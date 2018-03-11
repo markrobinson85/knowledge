@@ -47,7 +47,7 @@
     <template id="knowledge_container">
 
         <t t-foreach="pages" t-as="page">
-            <div t-att-id="page.id" t-att-data-res-id="page.id" t-att-title="page.name" t-att-hide-from-menu="hide_from_menu" t-att-hide-mark-as-done="hide_mark_as_done" class="o_kb_page container-fluid">
+            <div t-att-id="page.id" t-att-data-sequence="page.sequence" t-att-data-category-sequence="page.parent_id.sequence" t-att-data-res-id="page.id" t-att-title="page.name" t-att-hide-from-menu="hide_from_menu" t-att-hide-mark-as-done="hide_mark_as_done" class="o_kb_page container-fluid">
                 <!--<t t-if="page.parent_id">-->
                     <!--<div t-att-data-category-id="page.parent_id.id" name="parent_id" />-->
                 <!--</t>-->
@@ -57,7 +57,7 @@
                 </div>
             </div>
             <t t-if="page.parent_id">
-                <div t-att-menu-category-id="page.parent_id.name" t-att-menu-classes="page.parent_id.icon_class" />
+                <div t-att-menu-category-id="page.parent_id.name" t-att-data-category-sequence="page.parent_id.sequence" t-att-menu-classes="page.parent_id.icon_class" />
             </t>
         </t>
 
