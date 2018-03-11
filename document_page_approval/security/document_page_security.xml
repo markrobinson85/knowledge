@@ -2,7 +2,8 @@
 <odoo>
 <data noupdate="0">
     <record id="group_document_approver_user" model="res.groups">
-        <field name="name">Document approver</field>
+        <field name="name">Document Approval Manager</field>
+        <field name="category_id" ref="knowledge.module_category_knowledge_management"/>
         <field name="users" eval="[(4, ref('base.user_root'))]"/>
     </record>
 </data>
