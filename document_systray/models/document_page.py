@@ -19,6 +19,8 @@ class DocumentPage(models.Model):
 
     sequence = fields.Integer('Sequence', default=0, groups='base.group_document_technical_manager')
 
+    show_in_modal = fields.Boolean('Show in Help Window', default=False, groups='base.group_document_technical_manager')
+
     @api.model
     def render(self, page_id, model_name):
         """Return the content of a document."""
@@ -27,14 +29,14 @@ class DocumentPage(models.Model):
             pages = self.sudo().browse(page_id)
         else:
             model = self.sudo().env['ir.model'].search([('model', '=', model_name)])
-            pages = self.sudo().search([('model_ids', 'in', model.ids), ('type', '=', 'content')])
-            categories = self.sudo().search([('model_ids', 'in', model.ids), ('type', '=', 'category')])
+            pages = self.sudo().search([('model_ids', 'in', model.ids), ('type', '=', 'content'), ('show_in_modal', '=', True)])
+            categories = self.sudo().search([('model_ids', 'in', model.ids), ('type', '=', 'category'), ('show_in_modal', '=', True)])
             if len(pages) == 0:
-                pages = self.sudo().search([('type', '=', 'content')])
+                pages = self.sudo().search([('type', '=', 'content'), ('show_in_modal', '=', True)])
             if len(categories) == 0:
-                categories = self.sudo().search([('type', '=', 'category')])
+                categories = self.sudo().search([('type', '=', 'category'), ('show_in_modal', '=', True)])
         if len(pages.ids) == 0:
-            raise Warning('Unable to find page id referenced.')
+            raise Warning('Unable to find any knowledge base articles to show.')
 
         values = {
             'pages': pages,

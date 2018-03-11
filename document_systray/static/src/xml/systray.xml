@@ -5,7 +5,7 @@
     <t t-name="document_systray.quickhelp">
         <li class="o_mail_navbar_item">
             <a href="#" title="Knowledge">
-                <i class="fa fa-book"/>
+                <i class="fa fa-question-circle"/>
             </a>
         </li>
     </t>
@@ -40,12 +40,6 @@
                             <span>Discuss</span>
                         </button>
                     </div>
-                    <!--<div class="o_kb_header_right text-right">-->
-                        <!--<a class="btn btn-next">-->
-                            <!--Next step-->
-                            <!--<i class="fa fa-angle-right"></i>-->
-                        <!--</a>-->
-                    <!--</div>-->
                 </div>
             </div>
         </div>
