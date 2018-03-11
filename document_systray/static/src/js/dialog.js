@@ -20,6 +20,8 @@ var KnowledgePage = core.Class.extend({
         this.menu_item = null;
         this.title = $dom.find('[data-menutitle]').data('menutitle');
         this.category_id = $dom.find('[data-categoryid]').data('categoryid');
+        this.sequence = $dom.context.dataset.sequence;
+        this.category_sequence = $dom.context.dataset.categorySequence;
         this.res_id = parseInt($dom.context.dataset.resId);
 //        var page_id = this.title.replace(/\s/g, '') + page_index;
         var page_id = this.title.replace(/\s/g, '') + this.res_id;
@@ -112,6 +114,13 @@ var KnowledgeDialog = Widget.extend({
                 self.pages.push(page);
             });
 
+//            self.pages = _.sortBy(self.pages, function(o) { return o.sequence; })
+            self.pages = _(self.pages).chain().sortBy(function(o) {
+                            return o.sequence;
+                        }).sortBy(function(o) {
+                            return o.category_sequence;
+                        }).value();
+
             self.$res.find('.o_kb_category').andSelf().filter('.o_kb_category').each(function(index, dom_page) {
                 var page = new KnowledgePage(dom_page, index);
                 self.pages.push(page);
@@ -190,6 +199,7 @@ var KnowledgeDialog = Widget.extend({
                 name: $menu_category.attr('menu-category-id'),
                 classes: $menu_category.attr('menu-classes'),
                 menu_items: [],
+                sequence: parseInt($menu_category.context.dataset.categorySequence)
             };
 
             self.pages.forEach(function(page) {
@@ -208,6 +218,8 @@ var KnowledgeDialog = Widget.extend({
             self.$res = self.$res.not($menu_category);
             self.$res = self.$res.add($menu_category.contents());
         });
+
+        menu_categories = _.sortBy(menu_categories, function(o) { return o.sequence; })
 
         var menu = QWeb.render('KnowledgeMenu', {
             'orphan_pages': orphan_pages,
