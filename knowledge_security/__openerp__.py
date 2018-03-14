@@ -32,6 +32,7 @@
     ],
     'data': [
         'security/knowledge_security.xml',
+        'views/document_page.xml',
     ],
     'demo': [
     ],

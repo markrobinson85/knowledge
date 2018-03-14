@@ -29,12 +29,15 @@ class DocumentPage(models.Model):
             pages = self.sudo().browse(page_id)
         else:
             model = self.sudo().env['ir.model'].search([('model', '=', model_name)])
-            pages = self.sudo().search([('model_ids', 'in', model.ids), ('type', '=', 'content'), ('show_in_modal', '=', True)])
+            # self.env.user.groups_id
+            # pages = self.sudo().search([('model_ids', 'in', model.ids), ('type', '=', 'content'), ('show_in_modal', '=', True), '|', ('groups_id', 'in', self.env.user.groups_id.ids), ('groups_id', '=', False)])
+            pages = self.sudo().search(['&', ('model_ids', 'in', model.ids), ('type', '=', 'content'), ('show_in_modal', '=', True), ('groups_id', 'in', self.env.user.groups_id.ids)])
+
             categories = self.sudo().search([('model_ids', 'in', model.ids), ('type', '=', 'category'), ('show_in_modal', '=', True)])
             if len(pages) == 0:
-                pages = self.sudo().search([('type', '=', 'content'), ('show_in_modal', '=', True)])
+                pages = self.sudo().search(['&', ('type', '=', 'content'), ('show_in_modal', '=', True), ('groups_id', 'in', self.env.user.groups_id.ids)])
             if len(categories) == 0:
-                categories = self.sudo().search([('type', '=', 'category'), ('show_in_modal', '=', True)])
+                categories = self.sudo().search(['&', ('type', '=', 'category'), ('show_in_modal', '=', True), ('groups_id', 'in', self.env.user.groups_id.ids)])
         if len(pages.ids) == 0:
             raise Warning('Unable to find any knowledge base articles to show.')
 
