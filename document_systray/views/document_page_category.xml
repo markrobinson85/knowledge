@@ -6,9 +6,9 @@
             <field name="inherit_id" ref="document_page.view_category_form" />
             <field name="arch" type="xml">
                 <field name="parent_id" position="after">
-                    <field name="icon_class" />
-                    <field name="sequence" />
-                    <field name="show_in_modal" />
+                    <field name="icon_class" groups="base.group_document_technical_manager"/>
+                    <field name="sequence" groups="base.group_document_technical_manager" />
+                    <field name="show_in_modal" groups="base.group_document_technical_manager" />
                 </field>
             </field>
         </record>
@@ -19,8 +19,8 @@
             <field name="inherit_id" ref="document_page.view_wiki_form" />
             <field name="arch" type="xml">
                 <field name="parent_id" position="after">
-                    <field name="sequence" />
-                    <field name="show_in_modal" />
+                    <field name="sequence" groups="base.group_document_technical_manager"/>
+                    <field name="show_in_modal" groups="base.group_document_technical_manager"/>
                 </field>
             </field>
         </record>
@@ -34,7 +34,7 @@
             <field name="priority">100</field>
             <field name="arch" type="xml">
                 <field name="name" position="before">
-                    <field name="sequence" widget="handle"/>
+                    <field name="sequence" widget="handle" groups="base.group_document_technical_manager"/>
                 </field>
             </field>
         </record>
@@ -46,7 +46,7 @@
             <field name="inherit_id" ref="document_page.view_wiki_tree" />
             <field name="arch" type="xml">
                 <field name="name" position="before">
-                    <field name="sequence" widget="handle"/>
+                    <field name="sequence" widget="handle" groups="base.group_document_technical_manager"/>
                 </field>
             </field>
         </record>
@@ -57,7 +57,7 @@
             <field name="inherit_id" ref="document_page.view_category_tree"/>
             <field name="arch" type="xml">
                 <field name="name" position="before">
-                    <field name="sequence" widget="handle"/>
+                    <field name="sequence" widget="handle" groups="base.group_document_technical_manager"/>
                 </field>
             </field>
         </record>

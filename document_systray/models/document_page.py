@@ -12,14 +12,20 @@ class DocumentPage(models.Model):
     model_ids = fields.Many2many(
         'ir.model', 'ir_model_document_page_rel',
         'page_id', 'model_id', 'Models',
-        groups='base.group_document_technical_manager',
+        # groups='base.group_document_technical_manager',
         help='For future use to present specific pages on systray load.')
 
-    icon_class = fields.Char('Icon Class', groups='base.group_document_technical_manager')
+    icon_class = fields.Char('Icon Class',
+                             # groups='base.group_document_technical_manager'
+                             )
 
-    sequence = fields.Integer('Sequence', default=0, groups='base.group_document_technical_manager')
+    sequence = fields.Integer('Sequence', default=0,
+                              # groups='base.group_document_technical_manager'
+                              )
 
-    show_in_modal = fields.Boolean('Show in Help Window', default=False, groups='base.group_document_technical_manager')
+    show_in_modal = fields.Boolean('Show in Help Window', default=False,
+                                   # groups='base.group_document_technical_manager'
+                                   )
 
     @api.model
     def render(self, page_id, model_name):
@@ -30,14 +36,17 @@ class DocumentPage(models.Model):
         else:
             model = self.sudo().env['ir.model'].search([('model', '=', model_name)])
             # self.env.user.groups_id
-            # pages = self.sudo().search([('model_ids', 'in', model.ids), ('type', '=', 'content'), ('show_in_modal', '=', True), '|', ('groups_id', 'in', self.env.user.groups_id.ids), ('groups_id', '=', False)])
-            pages = self.sudo().search(['&', ('model_ids', 'in', model.ids), ('type', '=', 'content'), ('show_in_modal', '=', True), ('groups_id', 'in', self.env.user.groups_id.ids)])
 
-            categories = self.sudo().search([('model_ids', 'in', model.ids), ('type', '=', 'category'), ('show_in_modal', '=', True)])
+            pages = self.search(['&', ('model_ids', 'in', model.ids), ('type', '=', 'content'), ('show_in_modal', '=', True)])
+            # pages = self.sudo().search(['&', ('model_ids', 'in', model.ids), ('type', '=', 'content'), ('show_in_modal', '=', True), ('groups_id', 'in', self.env.user.groups_id.ids)])
+
+            categories = self.search([('model_ids', 'in', model.ids), ('type', '=', 'category'), ('show_in_modal', '=', True)])
             if len(pages) == 0:
-                pages = self.sudo().search(['&', ('type', '=', 'content'), ('show_in_modal', '=', True), ('groups_id', 'in', self.env.user.groups_id.ids)])
+                pages = self.search(['&', ('type', '=', 'content'), ('show_in_modal', '=', True)])
+                # pages = self.sudo().search(['&', ('type', '=', 'content'), ('show_in_modal', '=', True), ('groups_id', 'in', self.env.user.groups_id.ids)])
             if len(categories) == 0:
-                categories = self.sudo().search(['&', ('type', '=', 'category'), ('show_in_modal', '=', True), ('groups_id', 'in', self.env.user.groups_id.ids)])
+                categories = self.search(['&', ('type', '=', 'category'), ('show_in_modal', '=', True)])
+                # categories = self.sudo().search(['&', ('type', '=', 'category'), ('show_in_modal', '=', True), ('groups_id', 'in', self.env.user.groups_id.ids)])
         if len(pages.ids) == 0:
             raise Warning('Unable to find any knowledge base articles to show.')
 
