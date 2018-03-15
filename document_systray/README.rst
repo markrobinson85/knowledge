@@ -27,7 +27,6 @@ Known issues / Roadmap
 * Optimize refresh of content in modal
 * Feature documents related to currently open model.
 * Documents with the same name don't work correctly in the modal's side menu.
-* Add option to choose which pages/categories can be viewed in the modal window.
 
 Credits
 =======

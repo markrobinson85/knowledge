@@ -6,7 +6,9 @@
 Knowledge Management System base
 ================================
 
-Adds security roles to knowledge and document_page.
+Adds security roles for accessing document_page.
+
+Adds new group_ids field to document_page and ir_rule to filter pages user's can view, including kb author's.
 
 Installation
 ============
@@ -23,7 +25,6 @@ Known issues / Roadmap
 ======================
 
 * Add new Author and Manager roles.
-* Add security options on per page basis.
 
 Credits
 =======

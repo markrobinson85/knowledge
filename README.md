@@ -20,8 +20,10 @@ addon | version | summary
 --- | --- | ---
 [attachment_attach_non_editable](attachment_attach_non_editable/) | 10.0.1.0.0 | Force enable attachments
 [document_page](document_page/) | 10.0.1.0.0 | Document Page
+[document_systray](document_page_systray/) | 10.0.1.0.0 | Add help modal window to systray
 [document_page_approval](document_page_approval/) | 10.0.1.0.0 | Document Page Approval
 [knowledge](knowledge/) | 10.0.1.0.0 | Knowledge Management System
+[knowledge_security](knowledge_security/) | 10.0.1.0.0 | Add group access on per document access
 
 
 Unported addons
